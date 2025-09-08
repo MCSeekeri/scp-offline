@@ -1,0 +1,50 @@
+seeds:
+- url: http://scp-wiki-cn.wikidot.com
+  scopeType: "prefix"
+  exclude:
+  - \?q=
+  - /signin
+  - \?cid=
+  - /forum
+  - timestamp=
+
+blockRules:
+- url: (\w+\.)*ad-delivery.net
+- url: (\w+\.)*doubleclick.net
+- url: (\w+\.)*btloader.com
+- url: (\w+\.)*consent.nit.ro
+- url: (\w+\.)*nitropay.com
+- url: (\w+\.)*doubleclick,net
+- url: (\w+\.)*nitropay.com
+- url: (\w+\.)*onesignal.com
+- url: (\w+\.)*zh\.xjo\.ch
+- url: (\w+\.)*dun\.163\.com
+- url: (\w+\.)*music\.163\.com
+- url: (\w+\.)*bilibili\.com
+- url: (\w+\.)*bilivideo\.com
+- url: (\w+\.)*fbcdn\.net
+- url: (\w+\.)*vimeocdn\.com
+- url: (\w+\.)*soundcloud\.com
+- url: (\w+\.)*scpdb\.org
+- url: (\w+\.)*avn\.sh
+# - url: \.mp3$ #https://scp-wiki-cn.wdfiles.com/local--files/fragment%3Acn-1865-0/f-18-8-8-06.mp3
+# - url: \.mp4$
+# - url: \.wav$
+# - url: \.flv$
+# - url: \.avi$
+# - url: \.mov$
+# - url: \.ogg$
+# - url: \.mkv$
+
+combineWARC: true
+pageLoadTimeout: 30
+behaviorTimeout: 40
+blockAds: true
+generateWACZ: true
+sitemap: true # 时好时坏
+saveState: always
+workers: 32
+collection: scp-wiki-zh_all
+headless: true
+lang: zh
+logLevel: debug

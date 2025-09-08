@@ -1,0 +1,12 @@
+services:
+  browsertrix-crawler:
+    image: webrecorder/browsertrix-crawler:1.7.0
+    command:
+      - crawl
+      - --config=/config.yaml
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - "./config.yaml:/config.yaml:ro"
+      - "./crawls:/crawls/"
