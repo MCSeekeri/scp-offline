@@ -1,12 +1,37 @@
 services:
-  browsertrix-crawler:
-    image: webrecorder/browsertrix-crawler:1.7.0
+  crawler:
+    image: webrecorder/browsertrix-crawler:latest
     command:
       - crawl
       - --config=/config.yaml
-    cap_add:
-      - NET_ADMIN
-      - SYS_ADMIN
     volumes:
       - "./config.yaml:/config.yaml:ro"
-      - "./crawls:/crawls/"
+      - "./crawls:/crawls"
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    cpu_shares: 4096
+    mem_limit: 64g
+    shm_size: 48g
+
+  warc2zim:
+    image: ghcr.io/openzim/warc2zim:latest
+    container_name: warc2zim
+    profiles: ["tools"]
+    volumes:
+      - ./crawls:/crawls:ro
+      - ./output:/output:rw
+      - ./custom.css:/custom.css:ro
+    command: >
+      warc2zim
+      --verbose
+      --custom-css /custom.css
+      --lang zh
+      --publisher "MCSeekeri"
+      --description "SCP 基金会中文分部数据存档"
+      --name "scp-wiki-cn"
+      --output /output
+      --creator "MCSeekeri"
+      --title "SCP 基金会 中文分部 Wiki"
+      --url http://scp-wiki-cn.wikidot.com/
+      /crawls/collections/scp-wiki-cn/archive/
